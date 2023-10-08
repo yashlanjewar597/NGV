@@ -18,9 +18,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class response {
     
-    //private ObjectId restaurant_id;
+    private ObjectId restaurant_id;
     private String restaurantName;
-    private double restaurantAvgRating;
+    //private double restaurantAvgRating;
     //private List<review> restaurantReviews;
     private String dishName;
     //private String dishPrice;
