@@ -221,12 +221,12 @@ public class HomeService {
     Aggregation.project()
         .and("_id").as("restaurant_id")
         .and("restaurant_name").as("restaurantName")
-        //.and("avg_rating").as("restaurantAvgRating")
+        .and("avg_rating").as("restaurantAvgRating")
         //.and("customer_reviews").as("restaurantReviews")
         .and("dishes.dish_name").as("dishName")
-        //.and("dishes.price").as("dishPrice")
-        //.and("dishes.dish_reviews").as("dishReviews")
-        //.and("dishes.dish_image_link").as("dish_image_link")
+        .and("dishes.price").as("dishPrice")
+        .and("dishes.dish_reviews").as("dishReviews")
+        .and("dishes.dish_image_link").as("dish_image_link")
 );
 
 AggregationResults<response> results = mongoTemplate.aggregate(aggregation, "RestCollection", response.class);
