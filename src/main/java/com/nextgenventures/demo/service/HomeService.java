@@ -201,11 +201,11 @@ public class HomeService {
 
         //Aggregation.limit(1),
     // Match restaurants within 5 km range and open for delivery
-        Aggregation.match(Criteria.where("schedule").elemMatch(
-        Criteria.where("day").is(customDay)
-            .and("delivery.start").lte(updatedDate)
-            .and("delivery.end").gte(updatedDate)
-    )),       
+----//     Aggregation.match(Criteria.where("schedule").elemMatch(
+    //     Criteria.where("day").is(customDay)
+    //         .and("delivery.start").lte(updatedDate)
+    //         .and("delivery.end").gte(updatedDate)
+    ----// )),       
         
     Aggregation.skip(pageNumber * 5 ),  // 5 is Page Size
     Aggregation.limit(5),                            
