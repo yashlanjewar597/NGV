@@ -43,7 +43,7 @@ public class HomeController {
     }
 
     @GetMapping("/user/current/test")
-    public List<home> getNearbyHotel(@RequestParam("customerId") String customerId, @RequestParam("pageNumber") int pageNumber, @RequestParam("Latitude") double Latitude, @RequestParam("Longitude") double Longitude, @RequestParam("Radius") double Radius){
+    public String getNearbyHotel(@RequestParam("customerId") String customerId, @RequestParam("pageNumber") int pageNumber, @RequestParam("Latitude") double Latitude, @RequestParam("Longitude") double Longitude, @RequestParam("Radius") double Radius){
         return "hello testing";
     }
 
