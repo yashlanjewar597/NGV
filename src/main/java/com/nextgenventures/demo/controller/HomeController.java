@@ -42,6 +42,11 @@ public class HomeController {
         return HomeService.finalQuery(Latitude, Longitude, Radius, pageNumber);
     }
 
+    @GetMapping("/user/current/test")
+    public List<home> getNearbyHotel(@RequestParam("customerId") String customerId, @RequestParam("pageNumber") int pageNumber, @RequestParam("Latitude") double Latitude, @RequestParam("Longitude") double Longitude, @RequestParam("Radius") double Radius){
+        return "hello testing";
+    }
+
     @GetMapping("/data")
     public List<home> getRestra(){
         return HomeService.filterByTimeOnly();
