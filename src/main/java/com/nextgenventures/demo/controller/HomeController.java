@@ -27,14 +27,14 @@ public class HomeController {
     private HomeService HomeService;
 
     @GetMapping("/user")
-    public List<home> getData(@RequestParam("customerId") String customerId, @RequestParam("pageNumber") int pageNumber, HttpServletRequest request){
+    public List<home> getData(@RequestParam("customerId") String customerId, @RequestParam("pageNumber") int pageNumber){
         // String accessToken = extractAccessToken(request);
         // System.out.println("Access Token: " + accessToken);
         return HomeService.getHotel(customerId, pageNumber);
     }
 
     @GetMapping("/nearRest")
-    public List<response> getNearbyrestaurant(@RequestParam("Latitude") double Latitude, @RequestParam("Longitude") double Longitude, @RequestParam("Radius") double Radius, @RequestParam("pageNumber") int pageNumber, HttpServletRequest request){
+    public List<response> getNearbyrestaurant(@RequestParam("Latitude") double Latitude, @RequestParam("Longitude") double Longitude, @RequestParam("Radius") double Radius, @RequestParam("pageNumber") int pageNumber){
        // String accessToken = extractAccessToken(request);
        //  System.out.println("Access Token: " + accessToken);
         return HomeService.NewQ(Latitude, Longitude, Radius, pageNumber);
@@ -42,7 +42,7 @@ public class HomeController {
     }
 
     @GetMapping("/user/current")
-    public List<home> getNearbyHotel(@RequestParam("customerId") String customerId, @RequestParam("pageNumber") int pageNumber, @RequestParam("Latitude") double Latitude, @RequestParam("Longitude") double Longitude, @RequestParam("Radius") double Radius, HttpServletRequest request){
+    public List<home> getNearbyHotel(@RequestParam("customerId") String customerId, @RequestParam("pageNumber") int pageNumber, @RequestParam("Latitude") double Latitude, @RequestParam("Longitude") double Longitude, @RequestParam("Radius") double Radius){
         // String accessToken = extractAccessToken(request);
         // System.out.println("Access Token: " + accessToken);
         return HomeService.finalQuery(Latitude, Longitude, Radius, pageNumber);
