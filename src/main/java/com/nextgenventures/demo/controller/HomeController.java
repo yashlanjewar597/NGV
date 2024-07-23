@@ -27,54 +27,71 @@ public class HomeController {
     @Autowired
     private HomeService HomeService;
 
+    private boolean checkToken(String authorizationHeader) {
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            String token = authorizationHeader.substring(7);
+            // Perform token validation here if necessary
+            return true; // Token is valid
+        }
+        return false; // Token is invalid
+    }
+
     @GetMapping("/user")
-    public List<home> getData(@RequestParam("customerId") String customerId, @RequestParam("pageNumber") int pageNumber){
-        // String accessToken = extractAccessToken(request);
-        // System.out.println("Access Token: " + accessToken);
+    public Object getData(@RequestHeader(value = "Authorization", required = false) String authorizationHeader,
+                          @RequestParam("customerId") String customerId, @RequestParam("pageNumber") int pageNumber) {
+        if (!checkToken(authorizationHeader)) {
+            return "Unauthorized";
+        }
         return HomeService.getHotel(customerId, pageNumber);
     }
 
     @GetMapping("/nearRest")
-    public List<response> getNearbyrestaurant(@RequestParam("Latitude") double Latitude, @RequestParam("Longitude") double Longitude, @RequestParam("Radius") double Radius, @RequestParam("pageNumber") int pageNumber){
-       // String accessToken = extractAccessToken(request);
-       //  System.out.println("Access Token: " + accessToken);
+    public Object getNearbyrestaurant(@RequestHeader(value = "Authorization", required = false) String authorizationHeader,
+                                      @RequestParam("Latitude") double Latitude, @RequestParam("Longitude") double Longitude,
+                                      @RequestParam("Radius") double Radius, @RequestParam("pageNumber") int pageNumber) {
+        if (!checkToken(authorizationHeader)) {
+            return "Unauthorized";
+        }
         return HomeService.NewQ(Latitude, Longitude, Radius, pageNumber);
-       //return HomeService.getNearestHotel(Latitude, Longitude, Radius);
     }
 
     @GetMapping("/user/current")
-    public List<home> getNearbyHotel(@RequestParam("customerId") String customerId, @RequestParam("pageNumber") int pageNumber, @RequestParam("Latitude") double Latitude, @RequestParam("Longitude") double Longitude, @RequestParam("Radius") double Radius){
-        // String accessToken = extractAccessToken(request);
-        // System.out.println("Access Token: " + accessToken);
+    public Object getNearbyHotel(@RequestHeader(value = "Authorization", required = false) String authorizationHeader,
+                                 @RequestParam("customerId") String customerId, @RequestParam("pageNumber") int pageNumber,
+                                 @RequestParam("Latitude") double Latitude, @RequestParam("Longitude") double Longitude,
+                                 @RequestParam("Radius") double Radius) {
+        if (!checkToken(authorizationHeader)) {
+            return "Unauthorized";
+        }
         return HomeService.finalQuery(Latitude, Longitude, Radius, pageNumber);
     }
 
     @GetMapping("/user/current/test")
-    public String getTest(){
+    public Object getTest(@RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
+        if (!checkToken(authorizationHeader)) {
+            return "Unauthorized";
+        }
         return "hello testing";
     }
 
     @GetMapping("/data")
-    public List<home> getRestra(){
+    public Object getRestra(@RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
+        if (!checkToken(authorizationHeader)) {
+            return "Unauthorized";
+        }
         return HomeService.filterByTimeOnly();
     }
 
     @GetMapping("/testToken")
-    public String testToken(@RequestHeader("Authorization") String authorizationHeader) {
+    public Object testToken(@RequestHeader(value = "Authorization", required = false) String authorizationHeader) {
+        if (!checkToken(authorizationHeader)) {
+            return "Unauthorized";
+        }
         // Log the token to the console
         System.out.println("Authorization Header: " + authorizationHeader);
-        
         // Return the token in the response
         return "Received token: " + authorizationHeader;
     }
-
-    // private String extractAccessToken(HttpServletRequest request) {
-    //     String authorizationHeader = request.getHeader("Authorization");
-    //     if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-    //         return authorizationHeader.substring(7); // Extract token after "Bearer "
-    //     }
-    //     return null; // or throw an exception if the token is required
-    // }
 
     
 }
