@@ -58,13 +58,22 @@ public class HomeController {
         return HomeService.filterByTimeOnly();
     }
 
-    private String extractAccessToken(HttpServletRequest request) {
-        String authorizationHeader = request.getHeader("Authorization");
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            return authorizationHeader.substring(7); // Extract token after "Bearer "
-        }
-        return null; // or throw an exception if the token is required
+    @GetMapping("/testToken")
+    public String testToken(@RequestHeader("Authorization") String authorizationHeader) {
+        // Log the token to the console
+        System.out.println("Authorization Header: " + authorizationHeader);
+        
+        // Return the token in the response
+        return "Received token: " + authorizationHeader;
     }
+
+    // private String extractAccessToken(HttpServletRequest request) {
+    //     String authorizationHeader = request.getHeader("Authorization");
+    //     if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+    //         return authorizationHeader.substring(7); // Extract token after "Bearer "
+    //     }
+    //     return null; // or throw an exception if the token is required
+    // }
 
     
 }
