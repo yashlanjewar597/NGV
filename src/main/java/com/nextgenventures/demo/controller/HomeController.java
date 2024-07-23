@@ -3,7 +3,7 @@ package com.nextgenventures.demo.controller;
 import java.util.List;
 import com.nextgenventures.demo.models.home;
 import com.nextgenventures.demo.models.response;
-import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.geo.GeoResults;
@@ -27,24 +27,18 @@ public class HomeController {
     private HomeService HomeService;
 
     @GetMapping("/user")
-    public List<home> getData(@RequestParam("customerId") String customerId, @RequestParam("pageNumber") int pageNumber, HttpServletRequest request){
-        String accessToken = extractAccessToken(request);
-        System.out.println("Access Token: " + accessToken);
+    public List<home> getData(@RequestParam("customerId") String customerId, @RequestParam("pageNumber") int pageNumber){
         return HomeService.getHotel(customerId, pageNumber);
     }
 
     @GetMapping("/nearRest")
-    public List<response> getNearbyrestaurant(@RequestParam("Latitude") double Latitude, @RequestParam("Longitude") double Longitude, @RequestParam("Radius") double Radius, @RequestParam("pageNumber") int pageNumber, HttpServletRequest request){
-       String accessToken = extractAccessToken(request);
-        System.out.println("Access Token: " + accessToken);
-        return HomeService.NewQ(Latitude, Longitude, Radius, pageNumber);
+    public List<response> getNearbyrestaurant(@RequestParam("Latitude") double Latitude, @RequestParam("Longitude") double Longitude, @RequestParam("Radius") double Radius, @RequestParam("pageNumber") int pageNumber){
+       return HomeService.NewQ(Latitude, Longitude, Radius, pageNumber);
        //return HomeService.getNearestHotel(Latitude, Longitude, Radius);
     }
 
     @GetMapping("/user/current")
-    public List<home> getNearbyHotel(@RequestParam("customerId") String customerId, @RequestParam("pageNumber") int pageNumber, @RequestParam("Latitude") double Latitude, @RequestParam("Longitude") double Longitude, @RequestParam("Radius") double Radius, HttpServletRequest request){
-        String accessToken = extractAccessToken(request);
-        System.out.println("Access Token: " + accessToken);
+    public List<home> getNearbyHotel(@RequestParam("customerId") String customerId, @RequestParam("pageNumber") int pageNumber, @RequestParam("Latitude") double Latitude, @RequestParam("Longitude") double Longitude, @RequestParam("Radius") double Radius){
         return HomeService.finalQuery(Latitude, Longitude, Radius, pageNumber);
     }
 
@@ -57,14 +51,5 @@ public class HomeController {
     public List<home> getRestra(){
         return HomeService.filterByTimeOnly();
     }
-
-    private String extractAccessToken(HttpServletRequest request) {
-        String authorizationHeader = request.getHeader("Authorization");
-        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-            return authorizationHeader.substring(7); // Extract token after "Bearer "
-        }
-        return null; // or throw an exception if the token is required
-    }
-
     
 }
