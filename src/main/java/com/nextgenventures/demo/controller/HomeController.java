@@ -28,23 +28,23 @@ public class HomeController {
 
     @GetMapping("/user")
     public List<home> getData(@RequestParam("customerId") String customerId, @RequestParam("pageNumber") int pageNumber, HttpServletRequest request){
-        String accessToken = extractAccessToken(request);
-        System.out.println("Access Token: " + accessToken);
+        // String accessToken = extractAccessToken(request);
+        // System.out.println("Access Token: " + accessToken);
         return HomeService.getHotel(customerId, pageNumber);
     }
 
     @GetMapping("/nearRest")
     public List<response> getNearbyrestaurant(@RequestParam("Latitude") double Latitude, @RequestParam("Longitude") double Longitude, @RequestParam("Radius") double Radius, @RequestParam("pageNumber") int pageNumber, HttpServletRequest request){
-       String accessToken = extractAccessToken(request);
-        System.out.println("Access Token: " + accessToken);
+       // String accessToken = extractAccessToken(request);
+       //  System.out.println("Access Token: " + accessToken);
         return HomeService.NewQ(Latitude, Longitude, Radius, pageNumber);
        //return HomeService.getNearestHotel(Latitude, Longitude, Radius);
     }
 
     @GetMapping("/user/current")
     public List<home> getNearbyHotel(@RequestParam("customerId") String customerId, @RequestParam("pageNumber") int pageNumber, @RequestParam("Latitude") double Latitude, @RequestParam("Longitude") double Longitude, @RequestParam("Radius") double Radius, HttpServletRequest request){
-        String accessToken = extractAccessToken(request);
-        System.out.println("Access Token: " + accessToken);
+        // String accessToken = extractAccessToken(request);
+        // System.out.println("Access Token: " + accessToken);
         return HomeService.finalQuery(Latitude, Longitude, Radius, pageNumber);
     }
 
