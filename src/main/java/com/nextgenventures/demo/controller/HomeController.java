@@ -30,14 +30,14 @@ public class HomeController {
     public List<home> getData(@RequestParam("customerId") String customerId, @RequestParam("pageNumber") int pageNumber, HttpServletRequest request){
         String accessToken = extractAccessToken(request);
         System.out.println("Access Token: " + accessToken);
-        return homeService.getHotel(customerId, pageNumber);
+        return HomeService.getHotel(customerId, pageNumber);
     }
 
     @GetMapping("/nearRest")
     public List<response> getNearbyrestaurant(@RequestParam("Latitude") double Latitude, @RequestParam("Longitude") double Longitude, @RequestParam("Radius") double Radius, @RequestParam("pageNumber") int pageNumber, HttpServletRequest request){
        String accessToken = extractAccessToken(request);
         System.out.println("Access Token: " + accessToken);
-        return homeService.NewQ(Latitude, Longitude, Radius, pageNumber);
+        return HomeService.NewQ(Latitude, Longitude, Radius, pageNumber);
        //return HomeService.getNearestHotel(Latitude, Longitude, Radius);
     }
 
@@ -45,7 +45,7 @@ public class HomeController {
     public List<home> getNearbyHotel(@RequestParam("customerId") String customerId, @RequestParam("pageNumber") int pageNumber, @RequestParam("Latitude") double Latitude, @RequestParam("Longitude") double Longitude, @RequestParam("Radius") double Radius, HttpServletRequest request){
         String accessToken = extractAccessToken(request);
         System.out.println("Access Token: " + accessToken);
-        return homeService.finalQuery(Latitude, Longitude, Radius, pageNumber);
+        return HomeService.finalQuery(Latitude, Longitude, Radius, pageNumber);
     }
 
     @GetMapping("/user/current/test")
